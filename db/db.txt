@@ -1,3 +1,4 @@
 argo:dev:admin:123456:
 k8d:dev:admin:
-argo:stg:admin:123456:
+argo:stg:admin:123456stg:
+argo:pro:admin:123456pro:

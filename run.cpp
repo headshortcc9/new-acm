@@ -22,7 +22,7 @@ int ProcessCommandLine(int argc, const char* argv[]) {
   // myprogram --timeout=5 --input=my_file.txt
 
 
-  std::regex pattern("--(.*)=(.*)");
+  regex pattern("--(.*)=(.*)");
 
   // Iterate each element of argc
   try {

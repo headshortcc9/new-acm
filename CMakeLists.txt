@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.9)
-project(directory_test)
+project(acm)
 
 include_directories(include)
 
@@ -7,4 +7,4 @@ include_directories(include)
 
 file(GLOB SOURCES "src/*.cpp")
 
-add_executable(testStudent ${SOURCES})
+add_executable(acm ${SOURCES})

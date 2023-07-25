@@ -82,21 +82,10 @@ int ProcessCommandLine(int argc, const char* argv[]) {
 
   return 0;
 }
-//    defining main with arguments
-// int main(int argc, char** argv)
-// {
-//     cout << "You have entered " << argc << " arguments:"
-//          << "\n";
-//     if (argv[2])
-//     usage();
-//     for (int i = 0; i < argc; ++i)
-//         cout << argv[i] << "\n";
- 
-//     return 0;
-// }
-
 int main() {
   const char* argv[] = {"test", "--input=my_file.txt", "--from=Japanese",
+                        "--accuracy=a", "--overwrite=true"};
+    const char* argv[] = {"test", "--input=my_file.txt", "--from=Japanese",
                         "--accuracy=a", "--overwrite=true"};
   return ProcessCommandLine(5, argv);
 }

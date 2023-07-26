@@ -16,6 +16,7 @@ private:
 public:
     authenticator(int output_mode);
     ~authenticator();
+    void setOutputMode(int om);
     void vectorRemoveDuplicateItem(std::vector<std::string> &v);
     void print_recommend(std::vector<std::string> reds);
     void get_authenticator(std::string group, std::string acc);

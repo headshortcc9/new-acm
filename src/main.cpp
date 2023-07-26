@@ -1,7 +1,7 @@
 #include"authenticator.h"
 #include<map>
 using namespace std;
-
+int dm = 2;
 void usage(){
   cout<<"Usage: acm [OPTION...] [GROUP] [ACCOUNT_ID]"<<endl<<endl;
   cout<<"  -a    Show all group."<<endl;
@@ -27,7 +27,7 @@ int ProcessCommandLine(int argc, const char* argv[]) {
         auto it = matches.begin();
         // The first match because it's the entire string.
         if (*it == "-d"){
-          cout<<*it<<endl;
+          dm=1;
         }else if(*it == "-a"){
           searchs.push_back("#");
         }
@@ -58,10 +58,10 @@ int ProcessCommandLine(int argc, const char* argv[]) {
     }
 
     if(searchs.size() == 1){
-      authenticator au(1);
+      authenticator au(dm);
       au.get_authenticator(searchs[0],"#");
     }else if(searchs.size() == 2){
-      authenticator au(1);
+      authenticator au(dm);
       au.get_authenticator(searchs[0],searchs[1]);
     }
     else{

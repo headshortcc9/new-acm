@@ -1,7 +1,7 @@
 #include"authenticator.h"
 
-authenticator::authenticator(int output_mode){
-  output_mode=output_mode;
+authenticator::authenticator(int om){
+  output_mode=om;
 }
 
 authenticator::~authenticator(){
@@ -111,12 +111,20 @@ bool authenticator::identifier_match(std::string key,std::string pat) {
 void authenticator::outputProgress(std::vector<std::string> items){
   
   if(items.size() == 3){
-    std::cout<<"Token: "<<items[2]<<std::endl;
+    if(output_mode == 1){
+      std::cout<<"Your token: "<<std::endl<<items[2]<<std::endl;
+    }else{
+      std::cout<<"Token has been copied !"<<std::endl;
+      clip::set_text(items[2]);
+    }
   }
   else if(items.size() == 4){
     std::cout<<"Username: "<<items[2]<<std::endl;
-    std::cout<<"Password: "<<items[3]<<std::endl;
-    clip::set_text(items[3]);
+    if(output_mode == 1){
+      std::cout<<"Password: "<<items[3]<<std::endl;
+    }else{
+      clip::set_text(items[3]);
+    }
   }
 }
 
@@ -140,4 +148,8 @@ void authenticator::printRecommend(std::vector<std::string> &input)
     for (int i = 0; i < input.size(); i++) {
         std::cout << input.at(i) << ' ';
     }
+}
+
+void authenticator::setOutputMode(int om){
+  output_mode=om;
 }

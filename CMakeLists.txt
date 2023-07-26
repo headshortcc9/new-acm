@@ -12,19 +12,20 @@ file(GLOB SOURCES "src/*.cpp")
 
 
 set(CLIP_SOURCES lib/clip.cpp)
+list(APPEND CLIP_SOURCES lib/clip_x11.cpp)
+# if(HAVE_XCB_XLIB_H)
+#     add_definitions(-DHAVE_XCB_XLIB_H)
 
-if(HAVE_XCB_XLIB_H)
-    add_definitions(-DHAVE_XCB_XLIB_H)
+#     list(APPEND CLIP_SOURCES lib/clip_x11.cpp)
 
-    list(APPEND CLIP_SOURCES lib/clip_x11.cpp)
-
-endif()
+# endif()
 
 add_library(clip ${CLIP_SOURCES})
+target_link_libraries(clip xcb pthread)
 
-if(HAVE_XCB_XLIB_H)
-    target_link_libraries(clip xcb pthread)
-endif()
+# if(HAVE_XCB_XLIB_H)
+#     target_link_libraries(clip xcb pthread)
+# endif()
 
 add_executable(acm ${SOURCES})
 target_link_libraries(acm clip)

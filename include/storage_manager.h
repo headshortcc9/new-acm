@@ -1,4 +1,6 @@
 #include <iostream>
+#include <pwd.h>
+#include <unistd.h>
 class storage_manager
 {
 private:

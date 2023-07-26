@@ -5,5 +5,6 @@
 // }
 
 std::string storage_manager::get_db_path(){
-    return "./db/db.txt";
+    std::string homedir(getpwuid(getuid())->pw_dir);
+    return homedir+"/.acm";
 }

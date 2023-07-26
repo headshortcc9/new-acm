@@ -3,13 +3,17 @@
 using namespace std;
 
 void usage(){
-  cout<<"usage"<<endl;
+  cout<<"Usage: acm [OPTION...] [GROUP] [ACCOUNT_ID]"<<endl<<endl;
+  cout<<"  -a    Show all group."<<endl;
+  cout<<"  -d    Display password/token instead of copying to clipboard."<<endl;
+  cout<<"  --get-storage    Get path of storage file."<<endl;
+  cout<<"Report bugs to nghianx.t94@gmail.com"<<endl;
 }
 
 int ProcessCommandLine(int argc, const char* argv[]) {
 
-  regex long_pattern("--(.*)=(.*)");
-  regex short_pattern("-(.*)");
+  regex long_pattern("--(.*)");
+  regex short_pattern("-([a-z]*)");
   regex search_key_pattern("[a-z].*");
 
   // Iterate each element of argc
@@ -28,7 +32,20 @@ int ProcessCommandLine(int argc, const char* argv[]) {
           searchs.push_back("#");
         }
         else{
-          throw 101;
+          throw 403;
+        }
+        it++;
+      }
+      //
+      if (std::regex_match(param_to_search, matches, long_pattern)) {
+        auto it = matches.begin();
+        // The first match because it's the entire string.
+        if (*it == "--get-storage"){
+          cout<<storage_manager::get_db_path()<<endl;
+          return 1;
+        }
+        else{
+          throw 404;
         }
         it++;
       }
@@ -48,7 +65,7 @@ int ProcessCommandLine(int argc, const char* argv[]) {
       au.get_authenticator(searchs[0],searchs[1]);
     }
     else{
-      cout<<"show usage !"<<endl;
+      usage();
     }
   } 
   catch(int e){
@@ -58,11 +75,6 @@ int ProcessCommandLine(int argc, const char* argv[]) {
 }
 
 int main(int argc, const char** argv){
-  
-  //cout<<storage_manager::get_db_path()<<endl;
-  //authenticator sm;
-  //sm.get_authenticator("argo","ar");  
-  //cout<<identifier_match("argo","ar");
   ProcessCommandLine(argc,argv);
   return 0;
 }

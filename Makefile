@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named clip
+
+# Build rule for target.
+clip: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clip
+.PHONY : clip
+
+# fast build rule for target.
+clip/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/build
+.PHONY : clip/fast
+
+#=============================================================================
 # Target rules for targets named acm
 
 # Build rule for target.
@@ -128,6 +141,54 @@ acm: cmake_check_build_system
 acm/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/acm.dir/build.make CMakeFiles/acm.dir/build
 .PHONY : acm/fast
+
+lib/clip.o: lib/clip.cpp.o
+.PHONY : lib/clip.o
+
+# target to build an object file
+lib/clip.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/lib/clip.cpp.o
+.PHONY : lib/clip.cpp.o
+
+lib/clip.i: lib/clip.cpp.i
+.PHONY : lib/clip.i
+
+# target to preprocess a source file
+lib/clip.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/lib/clip.cpp.i
+.PHONY : lib/clip.cpp.i
+
+lib/clip.s: lib/clip.cpp.s
+.PHONY : lib/clip.s
+
+# target to generate assembly for a file
+lib/clip.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/lib/clip.cpp.s
+.PHONY : lib/clip.cpp.s
+
+lib/clip_x11.o: lib/clip_x11.cpp.o
+.PHONY : lib/clip_x11.o
+
+# target to build an object file
+lib/clip_x11.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/lib/clip_x11.cpp.o
+.PHONY : lib/clip_x11.cpp.o
+
+lib/clip_x11.i: lib/clip_x11.cpp.i
+.PHONY : lib/clip_x11.i
+
+# target to preprocess a source file
+lib/clip_x11.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/lib/clip_x11.cpp.i
+.PHONY : lib/clip_x11.cpp.i
+
+lib/clip_x11.s: lib/clip_x11.cpp.s
+.PHONY : lib/clip_x11.s
+
+# target to generate assembly for a file
+lib/clip_x11.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/clip.dir/build.make CMakeFiles/clip.dir/lib/clip_x11.cpp.s
+.PHONY : lib/clip_x11.cpp.s
 
 src/authenticator.o: src/authenticator.cpp.o
 .PHONY : src/authenticator.o
@@ -210,6 +271,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... acm"
+	@echo "... clip"
+	@echo "... lib/clip.o"
+	@echo "... lib/clip.i"
+	@echo "... lib/clip.s"
+	@echo "... lib/clip_x11.o"
+	@echo "... lib/clip_x11.i"
+	@echo "... lib/clip_x11.s"
 	@echo "... src/authenticator.o"
 	@echo "... src/authenticator.i"
 	@echo "... src/authenticator.s"

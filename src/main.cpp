@@ -1,4 +1,5 @@
 #include"authenticator.h"
+#include<map>
 using namespace std;
 
 void usage(){
@@ -6,76 +7,54 @@ void usage(){
 }
 
 int ProcessCommandLine(int argc, const char* argv[]) {
-  // if (argc < 2) {
-  //   usage();
-  //   return -1;
-  // }
-  int accuracy = 2;
-  bool overwrite = false;
-
-  // Regular expression matching --parameter=value.
-  // Example: --input=my_file.txt
-  // myprogram --input=my_file.txt --timeout=5
-  // myprogram --timeout=5 --input=my_file.txt
-
 
   regex long_pattern("--(.*)=(.*)");
   regex short_pattern("-(.*)");
+  regex search_key_pattern("[a-z].*");
 
   // Iterate each element of argc
   try {
+    vector<string> searchs;
     for (size_t i = 1; i < argc; i++) {
       std::string param_to_search = argv[i];
       std::smatch matches;
+        //set short option
       if (std::regex_match(param_to_search, matches, short_pattern)) {
         auto it = matches.begin();
         // The first match because it's the entire string.
-        cout<<*it<<endl;
+        if (*it == "-d"){
+          cout<<*it<<endl;
+        }else if(*it == "-a"){
+          searchs.push_back("#");
+        }
+        else{
+          throw 101;
+        }
         it++;
       }
-        // The second match is the parameter name.
-        // if ((*it) == "input") {
-        //   // The third match is the parameter value.
-        //   it++;
-        //   input = *it;
-        //   continue;
-        // }
-
-      //   // The second match is the parameter name.
-      //   if ((*it) == "from") {
-      //     // The third match is the parameter value
-      //     it++;
-      //     from = *it;
-      //     continue;
-      //   }
-
-      //   if ((*it) == "accuracy") {
-      //     it++;
-      //     accuracy = std::stoi(*it);
-      //     continue;
-      //   }
-
-      //   if ((*it) == "overwrite") {
-      //     it++;
-      //     std::istringstream((*it)) >> std::boolalpha >> overwrite;
-      //     continue;
-      //   }
-
-      //   usage();
-      //   return -1;
-
-      // } else {
-      //   usage();
-      //   return -1;
-      // }
+      //detect account
+      if (std::regex_match(param_to_search, matches, search_key_pattern)) {
+          auto it = matches.begin();
+          searchs.push_back(*it);
+          it++;
+      }
     }
-  } catch (const std::exception& e) {
-    std::cout << "Exception!" << std::endl;
-    usage();
-    return -1;
-  }
 
-  return 0;
+    if(searchs.size() == 1){
+      authenticator au(1);
+      au.get_authenticator(searchs[0],"#");
+    }else if(searchs.size() == 2){
+      authenticator au(1);
+      au.get_authenticator(searchs[0],searchs[1]);
+    }
+    else{
+      cout<<"show usage !"<<endl;
+    }
+  } 
+  catch(int e){
+      cout<<"exception "<<e<<endl;
+  }
+    return 0;
 }
 
 int main(int argc, const char** argv){

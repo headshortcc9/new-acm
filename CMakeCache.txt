@@ -218,6 +218,9 @@ acm_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 acm_SOURCE_DIR:STATIC=/home/nghianguyen/hdd/Project/new-acm
 
+//Dependencies for the target
+clip_LIB_DEPENDS:STATIC=general;xcb;general;pthread;
+
 
 ########################
 # INTERNAL cache entries
@@ -366,4 +369,6 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Have include xcb/xcb.h
+HAVE_XCB_XLIB_H:INTERNAL=1
 

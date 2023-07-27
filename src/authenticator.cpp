@@ -33,8 +33,8 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
                 items.push_back(s.substr(0, pos));
                 s.erase(0, pos + 1);
                 }
-                if(identifier_match(items[1],acc)){
-                  if(items[1] == acc){
+                if(identifier_match(items[1],acc) || items[1] == "!"){
+                  if(items[1] == acc || items[1] == "!"){
                       accRecommends.clear();
                       accRecommends.push_back("#");
                       if(items.size() < 2 || items.size() > 4){
@@ -48,8 +48,9 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
                   else{
                       accRecommends.push_back(items[1]);
                   }
-                }else{
-                fullAcc.push_back(items[1]);
+                }
+                else{
+                 fullAcc.push_back(items[1]);
                 }
             }
             else{
@@ -68,7 +69,8 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
           vectorRemoveDuplicateItem(fullGroup);
           printRecommend(fullGroup);
          }else{
-          std::cout<<"Could not found group "<<group<<std::endl;
+            std::cout<<"Could not found group "<<"\033[1;31m"<<group<<"\033[0m"<<", did you mean: \n";
+            std::cout<<"Using "<<"\033[1;31m"<<"-a"<<"\033[0m"<<" for display all group ! \n";
          }
       }
       else{
@@ -77,18 +79,19 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
             if(gRecommends.size() == 1){
               get_authenticator(gRecommends[0],acc);
             }else{
-              std::cout<<"Could not found group, ";
+              std::cout<<"Could not found group "<<"\033[1;31m"<<group<<"\033[0m"<<", did you mean: \n";
               printRecommend(gRecommends);
             }
         }else{
           if(accRecommends.size() == 0 ){
+            std::cout<<"Could not found account "<<"\033[1;31m"<<acc<<"\033[0m"<<", did you mean: \n";
             printRecommend(fullAcc);
           }else{
             if(accRecommends[0] != "#"){
               if(accRecommends.size() == 1){
                 get_authenticator(group,accRecommends[0]);
               }else{
-                std::cout<<"Could not found account, "<<std::endl;
+                std::cout<<"Could not found account "<<"\033[1;31m"<<acc<<"\033[0m"<<", did you mean: \n";
                 printRecommend(accRecommends);
               }
             }
@@ -119,11 +122,12 @@ void authenticator::outputProgress(std::vector<std::string> items){
     }
   }
   else if(items.size() == 4){
-    std::cout<<"Username: "<<items[2]<<std::endl;
+    std::cout<<"User: "<<"\033[1;33m"<<items[2]<<"\033[0m\n";
     if(output_mode == 1){
-      std::cout<<"Password: "<<items[3]<<std::endl;
+      std::cout<<"Password: "<<"\033[1;31m"<<items[3]<<"\033[0m\n";
     }else{
       clip::set_text(items[3]);
+      std::cout<<"Password has been copied !"<<std::endl;
     }
   }
 }

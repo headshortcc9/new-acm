@@ -18,10 +18,9 @@ public:
     ~authenticator();
     void setOutputMode(int om);
     void vectorRemoveDuplicateItem(std::vector<std::string> &v);
-    void print_recommend(std::vector<std::string> reds);
     void get_authenticator(std::string group, std::string acc);
     bool identifier_match(std::string key,std::string pat);
     void outputProgress(std::vector<std::string> items);
-    void printRecommend(std::vector<std::string> &input);
+    void printRecommend(std::vector<std::string> &input, int type);
 };
 

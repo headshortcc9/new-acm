@@ -16,12 +16,17 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
       std::vector<std::string> accRecommends;
       std::vector<std::string> fullAcc;
       std::vector<std::string> fullGroup;
+      int couter = 1;
       while (getline (MyReadFile, s)) 
       { 
+        couter++;
         size_t pos = 0;
         std::string token;
         pos = s.find(":");
-        if(s[s.length()-1] != ':' || s[0] == ':') throw 101;
+        if(s[s.length()-1] != ':' || s[0] == ':') {
+          std::cout<<"Error in line "<<couter<<std::endl;
+          throw 101;
+        }
         std::string g1 = s.substr(0, pos);
        
           if(identifier_match(g1,group)){
@@ -67,9 +72,9 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
          if(group == "#"){
           std::cout<<"All group: "<<std::endl;
           vectorRemoveDuplicateItem(fullGroup);
-          printRecommend(fullGroup);
+          printRecommend(fullGroup,2);
          }else{
-            std::cout<<"Could not found group "<<"\033[1;31m"<<group<<"\033[0m"<<", did you mean: \n";
+            std::cout<<"Could not found group "<<"\033[1;31m"<<group<<"\033[0m"<<"\n";
             std::cout<<"Using "<<"\033[1;31m"<<"-a"<<"\033[0m"<<" for display all group ! \n";
          }
       }
@@ -80,19 +85,19 @@ void authenticator::get_authenticator(std::string group, std::string acc) {
               get_authenticator(gRecommends[0],acc);
             }else{
               std::cout<<"Could not found group "<<"\033[1;31m"<<group<<"\033[0m"<<", did you mean: \n";
-              printRecommend(gRecommends);
+              printRecommend(gRecommends,1);
             }
         }else{
           if(accRecommends.size() == 0 ){
             std::cout<<"Could not found account "<<"\033[1;31m"<<acc<<"\033[0m"<<", did you mean: \n";
-            printRecommend(fullAcc);
+            printRecommend(fullAcc,1);
           }else{
             if(accRecommends[0] != "#"){
               if(accRecommends.size() == 1){
                 get_authenticator(group,accRecommends[0]);
               }else{
                 std::cout<<"Could not found account "<<"\033[1;31m"<<acc<<"\033[0m"<<", did you mean: \n";
-                printRecommend(accRecommends);
+                printRecommend(accRecommends,1);
               }
             }
           }
@@ -147,10 +152,14 @@ void authenticator::vectorRemoveDuplicateItem(std::vector<std::string> &v)
     v.erase(itr, v.end());
 }
 
-void authenticator::printRecommend(std::vector<std::string> &input)
+void authenticator::printRecommend(std::vector<std::string> &input, int type)
 {
     for (int i = 0; i < input.size(); i++) {
-        std::cout << input.at(i) << ' ';
+        if(type == 1){
+          std::cout << input.at(i) << ' ';
+        }else{
+          std::cout << input.at(i) << std::endl;
+        }
     }
 }
 

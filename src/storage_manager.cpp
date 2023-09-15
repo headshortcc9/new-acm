@@ -6,5 +6,5 @@
 
 std::string storage_manager::get_db_path(){
     std::string homedir(getpwuid(getuid())->pw_dir);
-    return homedir+"/.acm";
+    return homedir+"/.nxnenv/.acm";
 }
